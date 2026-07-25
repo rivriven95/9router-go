@@ -9,10 +9,10 @@ jobs:
     - uses: actions/setup-go@v5
       with:
         go-version: '1.23'
-    - name: Build
+    - name: Build Static Binary for ARMv7
       run: |
-        CC=arm-linux-androideabi-clang CGO_ENABLED=1 GOOS=android GOARCH=arm GOARM=7 go build -ldflags="-s -w" -o 9router-go-android-armv7 ./cmd/9router-go/
+        CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=7 go build -ldflags="-s -w -extldflags=-static" -tags "osusergo,netgo" -o 9router-go-armv7 ./cmd/9router-go/
     - uses: actions/upload-artifact@v4
       with:
-        name: 9router-go-android-armv7
-        path: 9router-go-android-armv7
+        name: 9router-go-armv7
+        path: 9router-go-armv7
